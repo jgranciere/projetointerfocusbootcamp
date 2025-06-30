@@ -77,21 +77,20 @@ Escolhi essas ferramentas por já ter tido contato com elas nas aulas da faculda
 ---
 
 ### 1. Clonando o repositório:
+- git clone https://github.com/jgranciere/bootcampInterfocus.git
+- cd bootcampInterfocus
 
-git clone https://github.com/jgranciere/bootcampInterfocus.git
-cd bootcampInterfocus
+### 2. Executando o backend:
+- cd cardapioBack
+- dotnet restore
+- dotnet ef database update
+- dotnet run
 
-**2. Executando o backend:**
-cd cardapioBack
-dotnet restore
-dotnet ef database update
-dotnet run
+### 3. Executando o frontend:
+- cd ../cardapioProjeto
+- npm install
+- npm run dev
 
-**3. Executando o frontend:**
-cd ../cardapioProjeto
-npm install
-npm run dev
-
-**🔐 Login do Administrador**
-Usuário: admin
-Senha: admin
+###🔐 Login do Administrador
+- Usuário: admin
+- Senha: admin
