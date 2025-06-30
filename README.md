@@ -86,6 +86,9 @@ Escolhi essas ferramentas por já ter tido contato com elas nas aulas da faculda
 - dotnet ef database update
 - dotnet run
 
+- ⚠️ Observação:
+Caso o comando dotnet ef database update não funcione corretamente ou não crie a tabela automaticamente, acesse seu banco de dados PostgreSQL (por exemplo, pelo pgAdmin) e crie manualmente uma tabela chamada "teste_produtos". Depois, rode novamente o projeto.
+
 ### 3. Executando o frontend:
 - cd ../cardapioProjeto
 - npm install
