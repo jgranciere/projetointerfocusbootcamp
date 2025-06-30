@@ -39,7 +39,7 @@ const BotaoAnimado = () => {
         className={status}
         onClick={handleClick}
       >
-        {status === '' && 'SUBMIT'}
+        {status === '' && 'Finalizar Pedido'}
         {status === 'onclic' && ''}
         {status === 'validate' && <span>&#10003;</span>}
       </button>
