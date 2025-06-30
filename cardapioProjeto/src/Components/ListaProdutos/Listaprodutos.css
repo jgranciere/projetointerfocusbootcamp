@@ -1,0 +1,146 @@
+.container-lista-produtos{
+    width: 100%;
+    display: flex;
+    flex: 1;
+    margin-bottom: 100px;
+}
+
+.container-produtos{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.container-produtos-list{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.container-produtos h1{
+    font-size: 25px;
+    font-weight: 500;
+    margin: 0;
+    color: black;
+}
+
+.produto-card{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+.infos-produtos{
+    display: flex;
+    width: 100%;
+    flex-direction: row-reverse;
+    padding: 5px;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.13);
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0px 5px 0px;
+    border-radius: 8px;
+}
+
+.infos-produtos h2, p, span{
+    color: black;
+    margin: 0;
+    flex-wrap: wrap;
+}
+
+.infos-produtos p{
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.637);
+}
+
+.infos-produtos h1{
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.infos-produtos span{
+    font-size: 13px;
+    font-weight: 200;
+}
+
+.infos-produtos img{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.infos-texto{
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: center;
+}
+
+.div-infos-img{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.add-product{
+    height: 30px;
+    width: 30px;
+    border-radius: 50px;
+    border: none;
+    color: white;
+    background-color: rgb(238, 238, 238);
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    gap: 5px;
+}
+
+.button-add-product{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+}
+
+.price-add span{
+    font-weight: 500;
+}
+
+.infos-card-product .span-rs{
+    font-size: 10px;
+    margin-right: 5px;
+    color: rgba(0, 0, 0, 0.589);
+    font-weight: 500;
+}
+
+.infos-card-product{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.infos-img-card-product{
+    display: flex;
+    flex-direction: row-reverse;
+    width: 80%;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+}
+
+.add-product .icone-carrinho-add{
+    color: rgba(0, 0, 0, 0.589);
+    font-size: 12px;
+}
+
+.add-product:hover {
+  transform: scale(1.1);
+  transition: .3s;
+  background-color: #696969;
+}

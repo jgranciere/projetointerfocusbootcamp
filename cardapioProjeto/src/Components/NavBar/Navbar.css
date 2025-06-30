@@ -1,0 +1,114 @@
+.header {
+    background-color: rgb(0, 0, 0);
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.header a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.header .img-logo{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.logo-img{
+    height: auto;
+    width: 90px;
+}
+
+.logo-img-name {
+  transition: opacity 0.3s ease;
+  display: relative;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.logo-img-name.hidden-logo {
+  opacity: 0;
+  visibility: hidden;
+}
+
+
+.buttons-options{
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    gap: 10px; /* espaçamento entre lupa e barra */
+    position: relative;
+}
+
+.buttons-options, .icon-search, .icon-share{
+    color: #ffffff;
+}
+
+.buttons-options button{
+    width: 40px;
+    height: 40px;
+    position: relative;
+    padding: 10px 12px;
+    border-radius: 50%;
+    border: none;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    margin-left: 0;
+}
+
+.search-bar {
+  width: 60%;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none; 
+}
+
+.search-bar.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  display: flex;
+  justify-content: end;
+  width: 60%;
+}
+
+.input-search {
+  padding: 5px 15px;
+  border-radius: 100px;
+  border: none;
+  background-color: rgb(49, 49, 49);
+  color: #ffffff;
+  outline: none;
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+    .header{
+        padding: 5px
+    }
+
+    .search-bar{
+        position: fixed;
+        right: 50px;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        pointer-events: none; 
+    }
+}

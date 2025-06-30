@@ -1,0 +1,59 @@
+.container-btn-confirmar{
+  width: 130px;
+  height: 40px;
+  text-align: center;
+}
+
+button {
+  outline: none;
+  height: 40px;
+  width: 130px;
+  text-align: center;
+  border-radius: 40px;
+  background: #fff;
+  border: 2px solid #1ECD97;
+  color: #1ECD97;
+  letter-spacing: 1px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+button:hover {
+  color: white;
+  background: #1ECD97;
+}
+
+button:active {
+  letter-spacing: 2px;
+}
+
+button.onclic {
+  width: 40px;
+  border-color: #bbbbbb;
+  border-width: 3px;
+  font-size: 0;
+  border-left-color: #1ECD97;
+  animation: rotating 2s linear infinite;
+}
+
+button.onclic:hover {
+  color: #1ECD97;
+  background: white;
+}
+
+button.validate {
+  font-size: 13px;
+  color: white;
+  background: #1ECD97;
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
