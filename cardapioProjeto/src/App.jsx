@@ -15,7 +15,7 @@ import AddFavoritos from './Components/pages/AdminDashboard/AdminAddFavoritos/Ad
 import RemoveProduto from './Components/pages/AdminDashboard/AdminRemoveProduto/RemoveProduto'
 import RemoveProdutoMaisPedidos from './Components/pages/AdminDashboard/AdminRemoveProdutoMaisPedidos/RemoveProdutoMaisPedidos'
 import EditProduto from './Components/pages/AdminDashboard/AdminEditProduto/EditProduto'
-
+import AdminOrderList from './Components/pages/AdminDashboard/AdminOrderList/AdminOrderList';
 
 const App = () => {
   const [termoBusca, setTermoBusca] = useState('');
@@ -69,6 +69,11 @@ const App = () => {
             <Route path="/admin/RemoveProdutoMaisPedidos" element={
               <ProtectedRoute>
                 <RemoveProdutoMaisPedidos />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/pedidos" element={
+              <ProtectedRoute>
+                <AdminOrderList />
               </ProtectedRoute>
             } />
           </Routes>

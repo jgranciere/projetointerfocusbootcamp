@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import './AdminDashboard.css'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faWhiskeyGlass, faPlus, faStar, faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { faWhiskeyGlass, faPlus, faStar, faTrashCan, faPenToSquare, faClipboardList } from '@fortawesome/free-solid-svg-icons'
 
 
 const AdminDashboard = () => {
@@ -68,6 +68,14 @@ const AdminDashboard = () => {
                     </div>
                     
                     <p className='title-cards-admin'>Remover algum produto</p>
+                </div>
+
+                <div className="card-listar-produtos" onClick={() => navigate('/admin/pedidos')}>
+                    <div className='icon-add-product'>
+                        <FontAwesomeIcon icon={faClipboardList} className='icon-gerenciador' />
+                    </div>
+                    
+                    <p>Gerenciar Pedidos</p>
                 </div>
 
                 

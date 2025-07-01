@@ -15,8 +15,12 @@ export const ProdutosProvider = ({ children }) => {
         }
         return response.json();
       })
-      .then(data => setProdutos(data))
-      .catch(error => console.error('Erro:', error));
+      .then(data => {
+        // --- MUDANÇA CRUCIAL AQUI ---
+        setProdutos(data.products || []); // Acesse a lista de produtos na propriedade 'products'
+        // --- FIM MUDANÇA CRUCIAL ---
+      })
+      .catch(error => console.error('Erro ao buscar produtos no contexto:', error));
   }, []);
 
   useEffect(() => {

@@ -6,13 +6,13 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
 const AddFavoritos = () => {
   const [produtoId, setProdutoId] = useState('');
-  const [produtos, setProdutos] = useState([]);
+  const [produtos, setProdutos] = useState([]); 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProdutos = async () => {
       try {
-        const response = await fetch('https://localhost:7027/api/produto', {
+        const response = await fetch('https://localhost:7027/api/produto?pageSize=9999', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ const AddFavoritos = () => {
 
         if (response.ok) {
           const data = await response.json();
-          setProdutos(data);
+          setProdutos(data.products || []); 
         } else {
           alert('Erro ao carregar produtos.');
         }
@@ -31,7 +31,7 @@ const AddFavoritos = () => {
     };
 
     fetchProdutos();
-  }, []);
+  }, []); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,14 +42,15 @@ const AddFavoritos = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id: produtoId }),
+        body: JSON.stringify({ id: produtoId }), 
       });
 
       if (response.ok) {
         alert('Produto adicionado aos Favoritos com sucesso!');
-        setProdutoId('');
+        setProdutoId(''); 
       } else {
-        alert('Erro ao adicionar produto aos Favoritos.');
+        const errorData = await response.json(); 
+        alert(errorData.mensagemErro || 'Erro ao adicionar produto aos Favoritos.');
       }
     } catch (error) {
       alert('Erro ao cadastrar produto: ' + error.message);
@@ -60,9 +61,9 @@ const AddFavoritos = () => {
     <div className='cadastrar-produto-container'>
       <div className='div-header-admin'>
         <FontAwesomeIcon icon={faChevronLeft} className='icon-back-div' onClick={() => navigate("/admin/dashboard")} />
-        <img className='img-logo-admin' src=".././public/Yume-logo.svg" alt="" />     
+        <img className='img-logo-admin' src=".././public/Yume-logo.svg" alt="" />
       </div>
-      
+
       <h2>Adicionar aos Favoritos</h2>
       <div className='lista-produtos'>
         <h3>Lista de Produtos</h3>

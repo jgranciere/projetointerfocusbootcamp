@@ -9,29 +9,30 @@ const RemoveProduto = () => {
   const [produtos, setProdutos] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchProdutos = async () => {
-      try {
-        const response = await fetch('https://localhost:7027/api/produto', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+  const fetchProdutos = async () => {
+    try {
+      const response = await fetch('https://localhost:7027/api/produto', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-        if (response.ok) {
-          const data = await response.json();
-          setProdutos(data);
-        } else {
-          alert('Erro ao carregar produtos.');
-        }
-      } catch (error) {
-        alert('Erro ao buscar produtos: ' + error.message);
+      if (response.ok) {
+        const data = await response.json();
+        setProdutos(data.products || []);
+      } else {
+        alert('Erro ao carregar produtos.');
       }
-    };
+    } catch (error) {
+      alert('Erro ao buscar produtos: ' + error.message);
+    }
+  };
 
+
+  useEffect(() => {
     fetchProdutos();
-  }, []);
+  }, []); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,15 +43,15 @@ const RemoveProduto = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        
       });
 
       if (response.ok) {
         alert('Produto removido com sucesso!');
         setProdutoId('');
-        setProdutos(produtos.filter(p=> p.id !== parseInt(produtoId)));
+        fetchProdutos(); 
       } else {
-        alert('Erro ao remover o produto!');
+        const errorData = await response.json();
+        alert(errorData.mensagemErro || 'Erro ao remover o produto!');
       }
     } catch (error) {
       alert('Erro ao remover produto: ' + error.message);
@@ -62,7 +63,7 @@ const RemoveProduto = () => {
 
       <div className='div-header-admin'>
           <FontAwesomeIcon icon={faChevronLeft} className='icon-back-div' onClick={() => navigate("/admin/dashboard")} />
-          <img className='img-logo-admin' src=".././public/Yume-logo.svg" alt="" />     
+          <img className='img-logo-admin' src=".././public/Yume-logo.svg" alt="" />
       </div>
 
       <h2>Remover Produto</h2>

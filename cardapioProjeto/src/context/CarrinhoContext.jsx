@@ -55,10 +55,14 @@ export const CarrinhoProvider = ({ children }) => {
     );
   };
 
+  const limparCarrinho = () => {
+    setCarrinho([]); 
+  };
+
   const total = carrinho.reduce((acc, item) => acc + item.precoTotal, 0);
 
   return (
-    <CarrinhoContext.Provider value={{ carrinho, adicionarAoCarrinho, removerDoCarrinho, alterarQuantidade, total }}>
+    <CarrinhoContext.Provider value={{ carrinho, adicionarAoCarrinho, removerDoCarrinho, alterarQuantidade, total, limparCarrinho}}>
       {children}
     </CarrinhoContext.Provider>
   );

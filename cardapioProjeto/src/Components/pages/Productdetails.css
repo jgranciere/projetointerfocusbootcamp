@@ -280,6 +280,58 @@
   font-weight: 600;
 }
 
+/* cardapioProjeto/src/Components/pages/ProductDetails.css */
+
+.status-produto {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.status-disponivel {
+    color: #28a745; /* Verde para disponível */
+}
+
+.status-indisponivel {
+    color: #dc3545; /* Vermelho para indisponível */
+}
+
+.quantidade-disponivel {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+.botao-adicionar-carrinho:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.mensagem-erro-carrinho {
+    color: #dc3545; /* Vermelho */
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 8px;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.status-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
 /* RESPONSIVO */
 @media (max-width: 768px) {
   .botao-adicionar-carrinho {

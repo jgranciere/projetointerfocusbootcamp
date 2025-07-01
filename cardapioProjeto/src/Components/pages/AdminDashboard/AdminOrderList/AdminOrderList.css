@@ -1,0 +1,93 @@
+/* cardapioProjeto/src/Components/pages/AdminDashboard/AdminOrderList/AdminOrderList.css */
+
+.admin-order-list-container {
+    padding: 20px;
+    background-color: #f8f9fa; /* Um cinza claro para o fundo */
+    min-height: 100vh;
+}
+
+.admin-order-list-container .div-header-admin {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+.admin-order-list-container .icon-back-div {
+    font-size: 1.5rem;
+    color: #007bff;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.admin-order-list-container .img-logo-admin {
+    height: 40px; /* Ajuste conforme o tamanho do seu logo */
+}
+
+.admin-order-list-container h2 {
+    color: #343a40;
+    margin-bottom: 30px;
+}
+
+.order-summary-box {
+    background-color: #e9ecef; /* Cor de fundo para o resumo */
+    color: #343a40;
+}
+
+.order-summary-box .total-value {
+    font-size: 2rem;
+    color: #28a745; /* Verde para o valor total */
+}
+
+.filters-and-sorts label {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.filters-and-sorts .form-select {
+    border-radius: 0.25rem;
+}
+
+.pedidos-list .card {
+    border-left: 5px solid transparent; /* Para indicar o status */
+}
+
+/* Cores de status */
+.pedidos-list .status-pendente {
+    color: #ffc107; /* Amarelo */
+    font-weight: bold;
+}
+
+.pedidos-list .status-finalizado {
+    color: #28a745; /* Verde */
+    font-weight: bold;
+}
+
+.pedidos-list .status-cancelado {
+    color: #dc3545; /* Vermelho */
+    font-weight: bold;
+}
+
+.pedidos-list .card-text.fw-bold span {
+    text-transform: capitalize; /* Capitaliza a primeira letra do status */
+}
+
+.pedidos-list .list-group-item {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+/* Responsividade básica */
+@media (max-width: 768px) {
+    .filters-and-sorts {
+        flex-direction: column;
+        align-items: center;
+    }
+    .filters-and-sorts > div {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}
