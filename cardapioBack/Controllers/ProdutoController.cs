@@ -11,28 +11,98 @@ namespace AprendendoAPI.Controllers
     [Route("api/produto")]
     public class ProdutoController : ControllerBase
     {
-        
-
         private readonly IProdutoRepository _produtoRepository;
         
-
         public ProdutoController(IProdutoRepository produtoRepository)
         {
-            _produtoRepository = produtoRepository;
-            
+            _produtoRepository = produtoRepository;   
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(
+            [FromQuery] string sortBy = "nome",
+            [FromQuery] string sortOrder = "asc",
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 12,
+            [FromQuery] string searchTerm = ""
+        )
         {
-            var produto = _produtoRepository.Get();
-            return Ok(produto);
+            IQueryable<Produto> todosOsProdutos = _produtoRepository.Get();
+
+            IQueryable<Produto> produtosFiltrados = todosOsProdutos;
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+
+                string termoDeBuscaEmMinusculas = searchTerm.ToLower();
+
+                produtosFiltrados = produtosFiltrados.Where(p=> p.Nome.ToLower().Contains(termoDeBuscaEmMinusculas) ||
+                                p.Descricao.ToLower().Contains(termoDeBuscaEmMinusculas));
+            }
+
+            IQueryable<Produto> produtosOrdenados = produtosFiltrados;
+
+            switch (sortBy.ToLower())
+            {
+                case "nome":
+                    if(sortOrder.ToLower() == "desc")
+                    {
+                        produtosOrdenados = produtosOrdenados.OrderByDescending(p => p.Nome);
+                    }
+                    else
+                    {
+                        produtosOrdenados = produtosOrdenados.OrderBy(p => p.Nome);
+                    }
+                    break;
+                case "preco":
+                    if(sortOrder.ToLower() == "desc")
+                    {
+                        produtosOrdenados = produtosOrdenados.OrderByDescending(p => p.Preco);
+                    }
+                    else
+                    {
+                        produtosOrdenados = produtosOrdenados.OrderBy(p => p.Preco);
+                    }
+                    break;
+                default:
+                    produtosOrdenados = produtosOrdenados.OrderBy(p => p.Nome);
+                    break;
+            }
+
+            int totalDeItens = produtosOrdenados.Count();
+
+            int itensParaPular = (page - 1) * pageSize;
+
+            List<Produto> produtosDestaPagina = produtosOrdenados
+                .Skip(itensParaPular)
+                .Take(pageSize)
+                .ToList();
+
+
+            return Ok(new
+            {
+                Products = produtosDestaPagina,
+                TotalCount = totalDeItens,
+                CurrentPage = page,
+                PageSize = pageSize
+            });
         }
 
 
         [HttpPost]
         public IActionResult Add([FromForm] ProdutoViewModel produtoView)
         {
+            if (produtoView.Descricao != null && produtoView.Descricao.Length > 100)
+            {
+                return BadRequest(new { mensagemErro = "A descrição deve ter no máximo 100 caracteres" });
+            }
+
+            if (produtoView.foto == null || produtoView.foto.Length == 0)
+            {
+                return BadRequest(new { mensagemErro = "A foto do produto é obrigatória." });
+            }
+
+
             var filePath = Path.Combine("Storage", produtoView.foto.FileName);
 
             using Stream fileStream = new FileStream(filePath, FileMode.Create);
@@ -40,14 +110,17 @@ namespace AprendendoAPI.Controllers
 
             var imagemUrl = $"https://localhost:7027/imagens/{produtoView.foto.FileName}";
 
-            var produto = new Produto(produtoView.Nome,produtoView.Preco, produtoView.Descricao, imagemUrl);
+            var produto = new Produto(
+                produtoView.Nome,
+                produtoView.Preco, 
+                produtoView.Descricao, 
+                imagemUrl,
+                produtoView.QuantidadeMaxima,
+                produtoView.Status
+            );
 
             produto.Categoria = "comida";
 
-            if (produtoView.Descricao.Length > 100)
-            {
-                return BadRequest(new { mensagemErro = "A descrição deve ter no maximo 100 caracteres" });
-            }
 
             _produtoRepository.Add(produto);
 
@@ -57,7 +130,9 @@ namespace AprendendoAPI.Controllers
                 nome = produto.Nome,
                 descricao = produto.Descricao,
                 preco = produto.Preco.ToString("N2", new CultureInfo("pt-BR")),
-                imagemUrl = produto.ImagemUrl
+                imagemUrl = produto.ImagemUrl,
+                quantidadeMaxima = produto.QuantidadeMaxima,
+                status = produto.Status
             };
 
             return Ok(new { mensagemSucesso = $"Produto {produto.Nome} cadastrado com sucesso!"});
@@ -88,6 +163,13 @@ namespace AprendendoAPI.Controllers
             produto.Nome = produtoUpdateView.Nome;
             produto.Preco = produtoUpdateView.Preco;
             produto.Descricao = produtoUpdateView.Descricao;
+            produto.QuantidadeMaxima = produtoUpdateView.QuantidadeMaxima;
+            produto.Status = produtoUpdateView.Status;
+
+            if (produto.Descricao != null && produto.Descricao.Length > 100)
+            {
+                return BadRequest(new { mensagemErro = "A descrição deve ter no máximo 100 caracteres" });
+            }
 
             _produtoRepository.Update(produto);
             return Ok(produto);

@@ -42,6 +42,16 @@ namespace AprendendoAPI.Controllers
         public IActionResult AddBebida([FromForm] ProdutoViewModel produtoView)
         {
 
+            if (produtoView.Descricao != null && produtoView.Descricao.Length > 100)
+            {
+                return BadRequest(new { mensagemErro = "A descrição deve ter no máximo 100 caracteres" });
+            }
+
+            if (produtoView.foto == null || produtoView.foto.Length == 0)
+            {
+                return BadRequest(new { mensagemErro = "A foto do produto é obrigatória." });
+            }
+
             var filePath = Path.Combine("Storage", produtoView.foto.FileName);
 
             using Stream fileStream = new FileStream(filePath, FileMode.Create);
@@ -49,14 +59,16 @@ namespace AprendendoAPI.Controllers
 
             var imagemUrl = $"https://localhost:7027/imagens/{produtoView.foto.FileName}";
 
-            var bebida = new Produto(produtoView.Nome, produtoView.Preco, produtoView.Descricao, imagemUrl);
+            var bebida = new Produto(
+                produtoView.Nome, 
+                produtoView.Preco, 
+                produtoView.Descricao, 
+                imagemUrl,
+                produtoView.QuantidadeMaxima,
+                produtoView.Status
+            );
 
             bebida.Categoria = "bebida";
-
-            if (produtoView.Descricao.Length > 50)
-            {
-                return BadRequest("A descrição deve ter no maximo 50 caracteres");
-            }
 
             _produtoRepository.Add(bebida);
 
@@ -66,10 +78,12 @@ namespace AprendendoAPI.Controllers
                 nome = bebida.Nome,
                 descricao = bebida.Descricao,
                 preco = bebida.Preco.ToString("N2", new CultureInfo("pt-BR")),
-                imagemUrl = bebida.ImagemUrl
+                imagemUrl = bebida.ImagemUrl,
+                quantidadeMaxima = bebida.QuantidadeMaxima,
+                status = bebida.Status
             };
 
-            return Ok(bebida);
+            return Ok(new { mensagemSucesso = $"Produto {bebida.Nome} cadastrado com sucesso!" });
         }
 
     }

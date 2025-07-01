@@ -5,16 +5,21 @@ namespace AprendendoAPI.Infraestrutura
     public class ProdutoRepository : IProdutoRepository
     {
 
-        private readonly ConnectionContext _context = new ConnectionContext();
+        private readonly ConnectionContext _context;
+
+        public ProdutoRepository(ConnectionContext context)
+        {
+            _context = context;
+        }
         public void Add(Produto produto)
         {
             _context.Produto.Add(produto);
             _context.SaveChanges();
         }
 
-        public List<Produto> Get()
+        public IQueryable<Produto> Get() 
         {
-            return _context.Produto.ToList();
+            return _context.Produto.AsQueryable(); 
         }
 
         public void Update(Produto produto)

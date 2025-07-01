@@ -4,7 +4,7 @@
     {
         void Add(Produto produto);
 
-        List<Produto> Get();
+        IQueryable<Produto> Get();
 
         void Update(Produto produto);
 

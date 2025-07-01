@@ -28,12 +28,23 @@ namespace AprendendoAPI.Models
         [MaxLength(50)]
         public string? Categoria { get; set; }
 
-        public Produto(string nome, decimal preco, string descricao, string imagemUrl)
+        [Required]
+        [Column("quantidade_maxima")]
+        public int QuantidadeMaxima { get; set; }
+
+        [Required]
+        [Column("status")]
+        [MaxLength(50)]
+        public string Status { get; set; }
+
+        public Produto(string nome, decimal preco, string descricao, string imagemUrl, int quantidadeMaxima, string status)
         {
             Nome = nome;
             Preco = preco;
             Descricao = descricao;
             ImagemUrl = imagemUrl;
+            QuantidadeMaxima = quantidadeMaxima;
+            Status = status;
         }
 
         
